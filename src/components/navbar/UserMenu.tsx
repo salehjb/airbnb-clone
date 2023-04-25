@@ -1,14 +1,15 @@
 "use client";
 
-import { MenuIcon } from "lucide-react";
-import Avatar from "../ui/Avatar";
-import { FC, useCallback, useRef, useState } from "react";
-import MenuItem from "./MenuItem";
-import useRegisterModal from "@/hooks/useRegisterModal";
-import useOnClickOutside from "@/hooks/useOnClickOutside";
 import useLoginModal from "@/hooks/useLoginModal";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import useRentModal from "@/hooks/useRentModal";
 import { User } from "@prisma/client";
+import { MenuIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { FC, useCallback, useRef, useState } from "react";
+import Avatar from "../ui/Avatar";
+import MenuItem from "./MenuItem";
 
 interface UserMenuProps {
   currentUser?: User | null;
@@ -17,21 +18,29 @@ interface UserMenuProps {
 const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const userMenuRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(userMenuRef, () => setIsOpen(false));
 
   const toggleOpen = useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
 
-  useOnClickOutside(userMenuRef, () => setIsOpen(false));
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+    rentModal.onOpen()
+  }, [currentUser, loginModal, rentModal])
 
   return (
     <div className="relative" ref={userMenuRef}>
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={onRent}
           className="hidden md:block text-sm font-semi-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Airbnb your home
@@ -73,7 +82,7 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
                   My properties
                 </MenuItem>
                 <MenuItem
-                  onClick={() => {}}
+                  onClick={rentModal.onOpen}
                 >
                   Airbnb my home
                 </MenuItem>

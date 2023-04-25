@@ -1,11 +1,12 @@
-import Navbar from "@/components/navbar/Navbar";
-import "./globals.css";
-import { Nunito } from "next/font/google";
-import ClientOnly from "@/components/layout/ClientOnly";
-import RegisterModal from "@/components/modals/RegisterModal";
-import ToasterProvider from "@/providers/ToasterProvider";
-import LoginModal from "@/components/modals/LoginModal";
 import getCurrentUser from "@/actions/getCurrentUser";
+import ClientOnly from "@/components/layout/ClientOnly";
+import LoginModal from "@/components/modals/LoginModal";
+import RegisterModal from "@/components/modals/RegisterModal";
+import RentModal from "@/components/modals/RentModal";
+import Navbar from "@/components/navbar/Navbar";
+import ToasterProvider from "@/providers/ToasterProvider";
+import { Nunito } from "next/font/google";
+import "./globals.css";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
       <body className={nunito.className}>
         <ClientOnly>
           <ToasterProvider />
+          <RentModal />
           <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />

@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
+import { User } from "@prisma/client";
 import { FC } from "react";
 import Logo from "../ui/Logo";
+import Categories from "./Categories";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
-import { User } from "@prisma/client";
- 
+
 interface NavbarProps {
-  currentUser?: User | null
+  currentUser?: User | null;
 }
 
 const Navbar: FC<NavbarProps> = ({ currentUser }) => {
@@ -22,6 +23,7 @@ const Navbar: FC<NavbarProps> = ({ currentUser }) => {
           </div>
         </div>
       </div>
+      <Categories />
     </div>
   );
 };

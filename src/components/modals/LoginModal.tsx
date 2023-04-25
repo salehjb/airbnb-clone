@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { GithubIcon } from "lucide-react";
-import { FcGoogle } from "react-icons/fc";
-import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
-import Modal from "./Modal";
-import Heading from "../ui/Heading";
-import Input from "../inputs/Input";
-import { useFormik } from "formik";
+import useRegisterModal from "@/hooks/useRegisterModal";
 import { loginFormSchema } from "@/validators/authValidation";
-import { toast } from "react-hot-toast";
-import Button from "../ui/Button";
+import { useFormik } from "formik";
+import { GithubIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+import Input from "../inputs/Input";
+import Button from "../ui/Button";
+import Heading from "../ui/Heading";
+import Modal from "./Modal";
 
 const LoginModal = () => {
   const registerModal = useRegisterModal();
@@ -70,20 +70,23 @@ const LoginModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button outline icon={FcGoogle} onClick={() => {}}>
+      <Button outline icon={FcGoogle} onClick={() => signIn("google")}>
         Continue with Google
       </Button>
-      <Button outline icon={GithubIcon} onClick={() => {}}>
+      <Button outline icon={GithubIcon} onClick={() => signIn("github")}>
         Continue with Github
       </Button>
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center justify-center gap-2">
-          <div>Already have an account?</div>
+          <div>First time using Airbnb?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={() => {
+              loginModal.onClose();
+              registerModal.onOpen();
+            }}
             className="text-netural-800 cursor-pointer hover:underline"
           >
-            Login
+            Create an account
           </div>
         </div>
       </div>
