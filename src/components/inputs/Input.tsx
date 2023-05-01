@@ -7,7 +7,7 @@ interface InputProps {
   id: string;
   label: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value: any;
   type?: string;
   disabled?: boolean;
   formatPrice?: boolean;

@@ -44,7 +44,6 @@ const Modal: FC<ModalProps> = ({
   }, [disabled, onClose]);
 
   const handleSubmit = useCallback(() => {
-    console.log("first");
     if (disabled) return;
     onSubmit();
   }, [disabled, onSubmit]);
