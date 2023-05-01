@@ -1,5 +1,4 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import ClientOnly from "@/components/layout/ClientOnly";
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
 import RentModal from "@/components/modals/RentModal";
@@ -25,14 +24,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <ClientOnly>
-          <ToasterProvider />
-          <RentModal />
-          <LoginModal />
-          <RegisterModal />
-          <Navbar currentUser={currentUser} />
-        </ClientOnly>
-        {children}
+        <ToasterProvider />
+        <RentModal />
+        <LoginModal />
+        <RegisterModal />
+        <Navbar currentUser={currentUser} />
+        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );

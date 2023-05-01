@@ -136,6 +136,7 @@ const RentModal = () => {
             formik.setValues((prev) => ({ ...prev, location }))
           }
         />
+        {/* @ts-ignore */}
         <Map center={formik.values.location?.latlng} />
       </div>
     );
